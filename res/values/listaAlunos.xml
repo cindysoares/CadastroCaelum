@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menuNovo">Novo</string>
+    <string name="menuMapa">Mapa</string>
+    <string name="menuSincronizar">Sincronizar</string>
+    <string name="menuProvas">Baixar provas</string>
+    <string name="menuPreferencias">Preferências</string>
+    <string name="menuMaisOpcoes">Mais opções</string>
+</resources>

@@ -1,0 +1,14 @@
+<resources>
+    <string name="imagemContato">Foto do contato</string>
+    <string name="nome">Nome:</string>
+    <string name="digiteNome">Digite o seu nome aqui...</string>
+    <string name="telefone">Telefone:</string>
+    <string name="digiteTelefone">Digite o seu telefone aqui...</string>
+    <string name="endereco">Endereço:</string>
+    <string name="digiteEndereco">Digite o seu endereço aqui...</string>
+    <string name="site">Site:</string>
+    <string name="digiteSite">Digite o seu site aqui...</string>
+    <string name="nota">Nota:</string>
+    <string name="inserir">Inserir</string>
+    <string name="alunoIncluido">O aluno foi incluído.</string>
+</resources>
