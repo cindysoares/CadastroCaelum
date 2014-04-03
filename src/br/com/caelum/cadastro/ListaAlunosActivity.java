@@ -20,9 +20,17 @@ public class ListaAlunosActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listagem_alunos);
         
-        final String[] alunos = {"Anderson", "Filipe", "Guilherme"};
-        
-        ListView listView = (ListView) findViewById(R.id.lista_alunos);
+        final String[] alunos = buscarAlunos();        
+        configurarListView(alunos);
+    }
+
+	private String[] buscarAlunos() {
+		final String[] alunos = {"Anderson", "Filipe", "Guilherme"};
+		return alunos;
+	}
+
+	private void configurarListView(final String[] alunos) {
+		ListView listView = (ListView) findViewById(R.id.lista_alunos);
         listView.setAdapter(new ArrayAdapter<String>(
         		this, android.R.layout.simple_list_item_checked, alunos));
         
@@ -48,7 +56,7 @@ public class ListaAlunosActivity extends Activity {
         		return false;
         	}
         });
-    }
+	}
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

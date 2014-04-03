@@ -31,13 +31,19 @@ public final class R {
         public static final int ic_receber=0x7f020007;
     }
     public static final class id {
-        public static final int botaoInserir=0x7f080000;
-        public static final int lista_alunos=0x7f080001;
-        public static final int menuMapa=0x7f080003;
-        public static final int menuNovo=0x7f080002;
-        public static final int menuPreferencias=0x7f080006;
-        public static final int menuProvas=0x7f080005;
-        public static final int menuSincronizar=0x7f080004;
+        public static final int botaoInserir=0x7f080006;
+        public static final int caminhoFoto=0x7f080000;
+        public static final int lista_alunos=0x7f080007;
+        public static final int menuMapa=0x7f080009;
+        public static final int menuNovo=0x7f080008;
+        public static final int menuPreferencias=0x7f08000c;
+        public static final int menuProvas=0x7f08000b;
+        public static final int menuSincronizar=0x7f08000a;
+        public static final int textEndereco=0x7f080003;
+        public static final int textNome=0x7f080001;
+        public static final int textSite=0x7f080004;
+        public static final int textTelefone=0x7f080002;
+        public static final int valorNota=0x7f080005;
     }
     public static final class layout {
         public static final int formulario=0x7f030000;
