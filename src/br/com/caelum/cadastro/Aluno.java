@@ -53,5 +53,9 @@ public class Aluno {
 		this.nota = nota;
 	}
 	
+	@Override
+	public String toString() {
+		return getId() + "-" + getNome();
+	}
 	
 }

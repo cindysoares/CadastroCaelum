@@ -1,5 +1,7 @@
 package br.com.caelum.cadastro;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,26 +16,32 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class ListaAlunosActivity extends Activity {
+	
+	private ListView listView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listagem_alunos);
+        setContentView(R.layout.listagem_alunos);         
         
-        final String[] alunos = buscarAlunos();        
+		listView = (ListView) findViewById(R.id.lista_alunos);
+		
+		final List<Aluno> alunos = carregarAlunos(listView);
         configurarListView(alunos);
     }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	carregarAlunos(listView);
+    }
 
-	private String[] buscarAlunos() {
-		final String[] alunos = {"Anderson", "Filipe", "Guilherme"};
+	private List<Aluno> buscarAlunos() {
+		List<Aluno> alunos = new AlunoDAO(this).getLista();
 		return alunos;
 	}
 
-	private void configurarListView(final String[] alunos) {
-		ListView listView = (ListView) findViewById(R.id.lista_alunos);
-        listView.setAdapter(new ArrayAdapter<String>(
-        		this, android.R.layout.simple_list_item_checked, alunos));
-        
+	private void configurarListView(final List<Aluno> alunos) {        
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         
         listView.setOnItemClickListener(new OnItemClickListener() {
@@ -50,12 +58,19 @@ public class ListaAlunosActivity extends Activity {
         	@Override
         	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int index, long arg3) {
         		Toast toast = Toast.makeText(ListaAlunosActivity.this, 
-        				alunos[index], 
+        				alunos.get(index).getNome(), 
         				Toast.LENGTH_LONG);
         		toast.show();  
         		return false;
         	}
         });
+	}
+
+	private List<Aluno> carregarAlunos(ListView listView) {
+		final List<Aluno> alunos = buscarAlunos();
+        listView.setAdapter(new ArrayAdapter<Aluno>(
+        		this, android.R.layout.simple_list_item_1, alunos));
+		return alunos;
 	}
     
     @Override
