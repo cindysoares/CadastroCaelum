@@ -5,6 +5,9 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 public class ListaAlunosActivity extends Activity {
 	
 	private ListView listView ;
+	private Aluno alunoSelecionado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +32,21 @@ public class ListaAlunosActivity extends Activity {
 		
 		final List<Aluno> alunos = carregarAlunos(listView);
         configurarListView(alunos);
+        
+        registerForContextMenu(listView);
     }
     
     @Override
     protected void onResume() {
+    	Log.i("resume", "onREsume()");
     	super.onResume();
     	carregarAlunos(listView);
     }
 
 	private List<Aluno> buscarAlunos() {
-		List<Aluno> alunos = new AlunoDAO(this).getLista();
+		AlunoDAO alunoDAO = new AlunoDAO(this);
+		List<Aluno> alunos = alunoDAO.getLista();
+		alunoDAO.close();
 		return alunos;
 	}
 
@@ -56,11 +65,8 @@ public class ListaAlunosActivity extends Activity {
         
         listView.setOnItemLongClickListener(new OnItemLongClickListener() {
         	@Override
-        	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int index, long arg3) {
-        		Toast toast = Toast.makeText(ListaAlunosActivity.this, 
-        				alunos.get(index).getNome(), 
-        				Toast.LENGTH_LONG);
-        		toast.show();  
+        	public boolean onItemLongClick(AdapterView<?> adapter, View view, int index, long id) {
+        		alunoSelecionado = (Aluno) adapter.getItemAtPosition(index);
         		return false;
         	}
         });
@@ -90,6 +96,27 @@ public class ListaAlunosActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
     }
+    
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+    		ContextMenuInfo menuInfo) {
+    	super.onCreateContextMenu(menu, v, menuInfo);
+    	getMenuInflater().inflate(R.menu.item_lista_aluno, menu);
+    }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+    	switch (item.getItemId()) {
+		case R.id.deletar:
+			Log.i("xxX", "onContextItemSelected");
+			AlunoDAO alunoDAO = new AlunoDAO(this);
+			alunoDAO.deletar(alunoSelecionado);
+			alunoDAO.close();
+			Toast.makeText(this, R.string.alunoDeletado, Toast.LENGTH_LONG).show();
+			carregarAlunos(listView);
+			break;
+		}
+    	return super.onContextItemSelected(item);    	
+    }
     
 }

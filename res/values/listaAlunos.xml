@@ -6,4 +6,12 @@
     <string name="menuProvas">Baixar provas</string>
     <string name="menuPreferencias">Preferências</string>
     <string name="menuMaisOpcoes">Mais opções</string>
+    <string name="menuLigar">Ligar</string>
+    <string name="menuEnviarSMS">Enviar SMS</string>
+    <string name="menuAcharNoMapa">Achar no mapa</string>
+    <string name="menuNavegarSite">Navegera no site</string>
+    <string name="menuEnviarEmail">Enviar e-mail</string>
+    <string name="menuDeletar">Deletar</string>
+    <string name="alunoDeletado">O aluno foi deletado.</string>
+    
 </resources>

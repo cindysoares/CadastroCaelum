@@ -13,6 +13,7 @@ public class AlunoDAO extends SQLiteOpenHelper {
 
 	private static final int VERSAO = 1;
 	private static final String DATABASE = "CadastroCaelum";
+	private static final String TABELA = "Aluno";
 
 	public AlunoDAO(Context context) {
 		super(context, DATABASE, null, VERSAO);
@@ -20,7 +21,7 @@ public class AlunoDAO extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String ddl = "create table Aluno (id integer primary key, " +
+		String ddl = "create table "+TABELA+" (id integer primary key, " +
 				"nome text unique not null, telefone text, endereco text, " +
 				"site text, nota real, caminhoFoto text);";		
 		db.execSQL(ddl);		
@@ -42,12 +43,12 @@ public class AlunoDAO extends SQLiteOpenHelper {
 		values.put("nota", aluno.getNota());
 		values.put("caminhoFoto", aluno.getCaminhoFoto());
 		
-		getWritableDatabase().insert(Aluno.class.getSimpleName(), null, values);
+		getWritableDatabase().insert(TABELA, null, values);
 	}
 	
 	public List<Aluno> getLista() {
 		List<Aluno> alunos = new ArrayList<Aluno>();
-		Cursor c = getReadableDatabase().rawQuery("select * from Aluno;", null);
+		Cursor c = getReadableDatabase().rawQuery("select * from "+TABELA+";", null);
 		
 		while (c.moveToNext()) {
 			Aluno aluno = new Aluno();
@@ -64,6 +65,11 @@ public class AlunoDAO extends SQLiteOpenHelper {
 		c.close();
 		
 		return alunos;
+	}
+	
+	public void deletar(Aluno aluno) {
+		String[] args = { aluno.getId().toString() };
+		getWritableDatabase().delete(TABELA, "id=?", args);
 	}
 
 }
