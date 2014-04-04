@@ -13,6 +13,8 @@ public class FormularioHelper {
 	private ImageView caminhoFoto;
 	private SeekBar nota;
 	
+	private Aluno aluno;
+	
 	public FormularioHelper(FormularioActivity activity) {
 		nome = (EditText) activity.findViewById(R.id.textNome);
 		telefone = (EditText) activity.findViewById(R.id.textTelefone);
@@ -32,5 +34,14 @@ public class FormularioHelper {
 		novoAluno.setNota(Integer.valueOf(nota.getProgress()).doubleValue());
 		return novoAluno;
 	}
+	
+	public void colocaNoFormulario(Aluno aluno) {
+        nome.setText(aluno.getNome());
+        telefone.setText(aluno.getTelefone());
+        site.setText(aluno.getSite());
+        nota.setProgress(Double.valueOf(aluno.getNota()).intValue());
+        endereco.setText(aluno.getEndereco());
+        this.aluno = aluno;
+    }
 
 }

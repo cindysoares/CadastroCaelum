@@ -1,6 +1,9 @@
 package br.com.caelum.cadastro;
 
-public class Aluno {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Aluno implements Serializable {
 	
 	private Long id;
 	private String nome;

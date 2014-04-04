@@ -50,16 +50,14 @@ public class ListaAlunosActivity extends Activity {
 		return alunos;
 	}
 
-	private void configurarListView(final List<Aluno> alunos) {        
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+	private void configurarListView(final List<Aluno> alunos) {
         
         listView.setOnItemClickListener(new OnItemClickListener() {
         	@Override
         	public void onItemClick(AdapterView<?> adapter, View view, int index, long id) {
-        		Toast toast = Toast.makeText(ListaAlunosActivity.this, 
-        				"Posição selecionada: " + String.valueOf(index+1), 
-        				Toast.LENGTH_SHORT);
-        		toast.show();
+        		Intent edicao = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+        		edicao.putExtra("alunoSelecionado", (Aluno)listView.getItemAtPosition(index));
+        		startActivity(edicao);
         	}
         });
         

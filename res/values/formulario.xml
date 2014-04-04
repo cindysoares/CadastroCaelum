@@ -11,4 +11,6 @@
     <string name="nota">Nota:</string>
     <string name="inserir">Inserir</string>
     <string name="alunoIncluido">O aluno foi incluído.</string>
+    <string name="alterar">Alterar</string>
+    <string name="alunoAlterado">O aluno foi alterado.</string>
 </resources>
