@@ -1,5 +1,6 @@
 package br.com.caelum.cadastro;
 
+import android.graphics.Bitmap;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -13,7 +14,7 @@ public class FormularioHelper {
 	private ImageView caminhoFoto;
 	private SeekBar nota;
 	
-	private Aluno aluno;
+	private Aluno aluno = new Aluno();;
 	
 	public FormularioHelper(FormularioActivity activity) {
 		nome = (EditText) activity.findViewById(R.id.textNome);
@@ -25,14 +26,12 @@ public class FormularioHelper {
 	}
 	
 	public Aluno pegaAlunoDoFormulario() {
-		Aluno novoAluno = new Aluno();
-		novoAluno.setNome(nome.getText().toString());
-		novoAluno.setTelefone(telefone.getText().toString());
-		novoAluno.setEndereco(endereco.getText().toString());
-		novoAluno.setSite(site.getText().toString());
-		//novoAluno.setCaminhoFoto();
-		novoAluno.setNota(Integer.valueOf(nota.getProgress()).doubleValue());
-		return novoAluno;
+		aluno.setNome(nome.getText().toString());
+		aluno.setTelefone(telefone.getText().toString());
+		aluno.setEndereco(endereco.getText().toString());
+		aluno.setSite(site.getText().toString());
+		aluno.setNota(Integer.valueOf(nota.getProgress()).doubleValue());
+		return aluno;
 	}
 	
 	public void colocaNoFormulario(Aluno aluno) {
@@ -44,4 +43,10 @@ public class FormularioHelper {
         this.aluno = aluno;
     }
 
+	public void carregaFoto(String localFoto) {
+		Bitmap bitmapImage = ImageUtil.decodeSampledBitmapFromFilePath(localFoto, 100, 100);
+		aluno.setCaminhoFoto(localFoto);
+		caminhoFoto.setImageBitmap(bitmapImage);
+	}
+	
 }

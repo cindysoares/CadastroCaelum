@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -15,12 +16,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class ListaAlunosActivity extends Activity {
 	
-	private ListView listView ;
+	private ListView listView;
 	private Aluno alunoSelecionado;
 
     @Override
@@ -99,22 +101,58 @@ public class ListaAlunosActivity extends Activity {
     public void onCreateContextMenu(ContextMenu menu, View v,
     		ContextMenuInfo menuInfo) {
     	super.onCreateContextMenu(menu, v, menuInfo);
-    	getMenuInflater().inflate(R.menu.item_lista_aluno, menu);
+    	getMenuInflater().inflate(R.menu.item_lista_aluno, menu);    	
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
-		case R.id.deletar:
-			Log.i("xxX", "onContextItemSelected");
-			AlunoDAO alunoDAO = new AlunoDAO(this);
-			alunoDAO.deletar(alunoSelecionado);
-			alunoDAO.close();
-			Toast.makeText(this, R.string.alunoDeletado, Toast.LENGTH_LONG).show();
-			carregarAlunos(listView);
-			break;
-		}
+    	case R.id.deletar:
+    		deletarAluno();
+    		break;
+    	case R.id.ligar:
+    		startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + alunoSelecionado.getTelefone())));
+    		break;
+    	case R.id.navegarNoSite:    		
+    		navegarNoSite();
+    		break;
+    	case R.id.enviarEmail:
+    		break;
+    	case R.id.enviarSMS:
+    		enviarSMS();
+    		break;
+    	case R.id.acharNoMapa:
+    		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?z=14&q="+alunoSelecionado.getEndereco())));
+    		break;
+    	}
+ 
     	return super.onContextItemSelected(item);    	
     }
+
+	private void enviarSMS() {
+		Intent sms = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + alunoSelecionado.getTelefone()));
+		sms.putExtra("sms_body", "Mensagem: ");
+		startActivity(sms);
+	}
+
+	private void deletarAluno() {
+		AlunoDAO alunoDAO = new AlunoDAO(this);
+		alunoDAO.deletar(alunoSelecionado);
+		alunoDAO.close();
+		Toast.makeText(this, R.string.alunoDeletado, Toast.LENGTH_LONG).show();
+		carregarAlunos(listView);
+	}
+	
+	private void navegarNoSite() {
+		String siteAluno = alunoSelecionado.getSite();
+		if(siteAluno == null || siteAluno.trim().isEmpty()) {
+			Toast.makeText(this, "O aluno não tem site cadastrado.", Toast.LENGTH_LONG).show();
+			return;
+		}
+		if(!siteAluno.startsWith("http")) {
+			siteAluno = "http:" + siteAluno;
+		}
+		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(siteAluno)));
+	}
     
 }
