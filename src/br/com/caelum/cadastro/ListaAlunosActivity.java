@@ -2,6 +2,8 @@ package br.com.caelum.cadastro;
 
 import java.util.List;
 
+import org.json.JSONException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ public class ListaAlunosActivity extends Activity {
 	
 	private ListView listView;
 	private Aluno alunoSelecionado;
+	
+	private static final String TAG_ACTIVITY = "aluno_activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +95,32 @@ public class ListaAlunosActivity extends Activity {
 		case R.id.menuNovo:
 			startActivity(new Intent(this, FormularioActivity.class));
 			return false;
+		case R.id.menuSincronizar:
+			try {
+				int alunosSincronizados = sincronizarAlunos();
+				Toast.makeText(this, alunosSincronizados + " alunos sincronizados.", Toast.LENGTH_LONG).show();
+			} catch (JSONException e) {
+				Log.e(TAG_ACTIVITY, e.getMessage(), e);
+				Toast.makeText(this, "Náo foi possível sincronizar os alunos", Toast.LENGTH_LONG).show();
+			}
+			return false;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
     }
     
-    @Override
+    private int sincronizarAlunos() throws JSONException {
+    	AlunoDAO dao = new AlunoDAO(this);
+    	List<Aluno> alunos = dao.getLista();
+    	dao.close();
+    	
+    	String json = new AlunoConverter().toJson(alunos);
+    	Log.i(TAG_ACTIVITY, json);
+    	return alunos.size();
+		
+	}
+
+	@Override
     public void onCreateContextMenu(ContextMenu menu, View v,
     		ContextMenuInfo menuInfo) {
     	super.onCreateContextMenu(menu, v, menuInfo);
