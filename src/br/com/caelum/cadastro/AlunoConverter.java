@@ -7,22 +7,28 @@ import org.json.JSONStringer;
 
 public class AlunoConverter {
 	
-	public String toJson(List<Aluno> alunos) throws JSONException {
+	public String toJson(List<Aluno> alunos) {
 		JSONStringer jsonStringer =  new JSONStringer();
-		jsonStringer.object().key("list").array().object().key("alunos").array();
-		
-		for (Aluno aluno : alunos) {
-			jsonStringer.object()
-			.key("id").value(aluno.getId())
-			.key("nome").value(aluno.getNome())
-			.key("telefone").value(aluno.getTelefone())
-			.key("endereco").value(aluno.getEndereco())
-			.key("site").value(aluno.getSite())
-			.key("nota").value(aluno.getNota()).endObject();
+		try {
+			jsonStringer.object().key("list").array().object().key("aluno").array();
+
+
+			for (Aluno aluno : alunos) {
+				jsonStringer.object()
+				.key("id").value(aluno.getId())
+				.key("nome").value(aluno.getNome())
+				.key("telefone").value(aluno.getTelefone())
+				.key("endereco").value(aluno.getEndereco())
+				.key("site").value(aluno.getSite())
+				.key("nota").value(aluno.getNota()).endObject();
+			}
+
+
+			jsonStringer.endArray().endObject().endArray().endObject();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		jsonStringer.endArray().endObject().endArray().endObject();
-		
 		
 		return jsonStringer.toString();		
 	}

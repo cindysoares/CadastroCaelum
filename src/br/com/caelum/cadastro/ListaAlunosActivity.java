@@ -10,6 +10,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 
+import br.com.caelum.cadastro.task.EnviaContatosTask;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -124,19 +126,22 @@ public class ListaAlunosActivity extends Activity {
     	
     	String json = new AlunoConverter().toJson(alunos);
     	Log.i(TAG_ACTIVITY, json);
+    	
+    	EnviaContatosTask task = new EnviaContatosTask(this);
+    	task.execute();
 
-    	new AsyncTask<String, Void, Boolean> () {
+ /*   	new AsyncTask<String, Void, Boolean> () {
     		@Override
 			protected Boolean doInBackground(String... args) {
     			try {
-    				/*DefaultHttpClient httpClient = new DefaultHttpClient();
+    				DefaultHttpClient httpClient = new DefaultHttpClient();
     				HttpPost post = new HttpPost(URL_SERVIDOR);
     				post.setEntity(new StringEntity(args[0]));
     				post.setHeader("Accept", "application/json");
     				post.setHeader("Content-type", "application/json");
 
     				HttpResponse response = httpClient.execute(post);
-    				String jsonDeResposta = EntityUtils.toString(response.getEntity());*/
+    				String jsonDeResposta = EntityUtils.toString(response.getEntity());
     				
     				Log.i(TAG_ACTIVITY, args[0]);
     				
@@ -159,7 +164,7 @@ public class ListaAlunosActivity extends Activity {
     			}
 				return true;
 			};
-    	}.execute(json);
+    	}.execute(json);*/
     	
     	Boolean executouComSucesso = true;
     	
