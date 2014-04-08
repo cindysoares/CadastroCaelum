@@ -1,12 +1,19 @@
 package br.com.caelum.cadastro;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -23,6 +30,7 @@ import android.widget.Toast;
 
 public class ListaAlunosActivity extends Activity {
 	
+	private static final String URL_SERVIDOR = "http://www.caelum.com.br/mobile";
 	private ListView listView;
 	private Aluno alunoSelecionado;
 	
@@ -99,7 +107,7 @@ public class ListaAlunosActivity extends Activity {
 			try {
 				int alunosSincronizados = sincronizarAlunos();
 				Toast.makeText(this, alunosSincronizados + " alunos sincronizados.", Toast.LENGTH_LONG).show();
-			} catch (JSONException e) {
+			} catch (Exception e) {
 				Log.e(TAG_ACTIVITY, e.getMessage(), e);
 				Toast.makeText(this, "Náo foi possível sincronizar os alunos", Toast.LENGTH_LONG).show();
 			}
@@ -109,13 +117,56 @@ public class ListaAlunosActivity extends Activity {
 		}
     }
     
-    private int sincronizarAlunos() throws JSONException {
+    private int sincronizarAlunos() throws InterruptedException, ExecutionException, JSONException {
     	AlunoDAO dao = new AlunoDAO(this);
     	List<Aluno> alunos = dao.getLista();
     	dao.close();
     	
     	String json = new AlunoConverter().toJson(alunos);
     	Log.i(TAG_ACTIVITY, json);
+
+    	new AsyncTask<String, Void, Boolean> () {
+    		@Override
+			protected Boolean doInBackground(String... args) {
+    			try {
+    				/*DefaultHttpClient httpClient = new DefaultHttpClient();
+    				HttpPost post = new HttpPost(URL_SERVIDOR);
+    				post.setEntity(new StringEntity(args[0]));
+    				post.setHeader("Accept", "application/json");
+    				post.setHeader("Content-type", "application/json");
+
+    				HttpResponse response = httpClient.execute(post);
+    				String jsonDeResposta = EntityUtils.toString(response.getEntity());*/
+    				
+    				Log.i(TAG_ACTIVITY, args[0]);
+    				
+    				DefaultHttpClient httpClient = new DefaultHttpClient();
+
+    				HttpPost post = new HttpPost(URL_SERVIDOR);
+    				post.setEntity(new StringEntity(args[0]));
+
+    				post.setHeader("Accept", "application/json");
+    				post.setHeader("Content-type", "application/json");
+
+    				HttpResponse response = httpClient.execute(post);
+    				String jsonDeResposta = EntityUtils.toString(response.getEntity());
+
+
+    				Log.i(TAG_ACTIVITY, jsonDeResposta);
+    			} catch(Exception e) {
+    				Log.e(TAG_ACTIVITY, e.getMessage(), e);
+    				return false;
+    			}
+				return true;
+			};
+    	}.execute(json);
+    	
+    	Boolean executouComSucesso = true;
+    	
+    	if(!executouComSucesso) {
+    		throw new ExecutionException(null);
+    	}
+    	
     	return alunos.size();
 		
 	}
