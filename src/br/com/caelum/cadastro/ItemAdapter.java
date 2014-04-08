@@ -2,6 +2,8 @@ package br.com.caelum.cadastro;
 
 import java.util.List;
 
+import br.com.caelum.cadastro.model.Aluno;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;

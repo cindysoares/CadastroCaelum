@@ -1,5 +1,6 @@
 package br.com.caelum.cadastro;
 
+import br.com.caelum.cadastro.model.Aluno;
 import android.graphics.Bitmap;
 import android.widget.EditText;
 import android.widget.ImageView;

@@ -5,6 +5,8 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONStringer;
 
+import br.com.caelum.cadastro.model.Aluno;
+
 public class AlunoConverter {
 	
 	public String toJson(List<Aluno> alunos) {

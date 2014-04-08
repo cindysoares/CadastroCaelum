@@ -6,9 +6,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
-import br.com.caelum.cadastro.Aluno;
 import br.com.caelum.cadastro.AlunoConverter;
 import br.com.caelum.cadastro.AlunoDAO;
+import br.com.caelum.cadastro.model.Aluno;
 import br.com.caelum.cadastro.support.WebClient;
 
 public class EnviaContatosTask extends AsyncTask<Object, Object, String> {

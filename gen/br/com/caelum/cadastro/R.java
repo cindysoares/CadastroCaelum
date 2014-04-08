@@ -36,23 +36,25 @@ public final class R {
         public static final int ic_receber=0x7f020007;
     }
     public static final class id {
-        public static final int acharNoMapa=0x7f0a000d;
+        public static final int acharNoMapa=0x7f0a000f;
         public static final int botaoInserir=0x7f0a0006;
         public static final int caminhoFoto=0x7f0a0000;
-        public static final int deletar=0x7f0a0010;
-        public static final int enviarEmail=0x7f0a000f;
-        public static final int enviarSMS=0x7f0a000c;
+        public static final int deletar=0x7f0a0012;
+        public static final int enviarEmail=0x7f0a0011;
+        public static final int enviarSMS=0x7f0a000e;
         public static final int foto=0x7f0a0008;
         public static final int fundo=0x7f0a0007;
-        public static final int ligar=0x7f0a000b;
-        public static final int lista_alunos=0x7f0a000a;
-        public static final int menuMapa=0x7f0a0012;
-        public static final int menuNovo=0x7f0a0011;
-        public static final int menuPreferencias=0x7f0a0015;
-        public static final int menuProvas=0x7f0a0014;
-        public static final int menuSincronizar=0x7f0a0013;
-        public static final int navegarNoSite=0x7f0a000e;
+        public static final int ligar=0x7f0a000d;
+        public static final int lista_alunos=0x7f0a000b;
+        public static final int lista_provas=0x7f0a000a;
+        public static final int menuMapa=0x7f0a0014;
+        public static final int menuNovo=0x7f0a0013;
+        public static final int menuPreferencias=0x7f0a0017;
+        public static final int menuProvas=0x7f0a0016;
+        public static final int menuSincronizar=0x7f0a0015;
+        public static final int navegarNoSite=0x7f0a0010;
         public static final int nome=0x7f0a0009;
+        public static final int provas_view=0x7f0a000c;
         public static final int textEndereco=0x7f0a0003;
         public static final int textNome=0x7f0a0001;
         public static final int textSite=0x7f0a0004;
@@ -62,7 +64,9 @@ public final class R {
     public static final class layout {
         public static final int formulario=0x7f030000;
         public static final int item=0x7f030001;
-        public static final int listagem_alunos=0x7f030002;
+        public static final int lista_provas=0x7f030002;
+        public static final int listagem_alunos=0x7f030003;
+        public static final int provas=0x7f030004;
     }
     public static final class menu {
         public static final int formulario=0x7f090000;
@@ -102,6 +106,7 @@ public final class R {
         public static final int site=0x7f070007;
         public static final int telefone=0x7f070003;
         public static final int title_activity_formulario=0x7f07001c;
+        public static final int title_activity_provas=0x7f07001d;
     }
     public static final class style {
         /** 

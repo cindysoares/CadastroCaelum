@@ -3,6 +3,8 @@ package br.com.caelum.cadastro;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.caelum.cadastro.model.Aluno;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

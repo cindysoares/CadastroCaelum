@@ -3,19 +3,11 @@ package br.com.caelum.cadastro;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
-
-import br.com.caelum.cadastro.task.EnviaContatosTask;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -29,6 +21,8 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import br.com.caelum.cadastro.model.Aluno;
+import br.com.caelum.cadastro.task.EnviaContatosTask;
 
 public class ListaAlunosActivity extends Activity {
 	
@@ -114,6 +108,8 @@ public class ListaAlunosActivity extends Activity {
 				Toast.makeText(this, "Náo foi possível sincronizar os alunos", Toast.LENGTH_LONG).show();
 			}
 			return false;
+		case R.id.menuProvas:
+			startActivity(new Intent(this, ProvasActivity.class));
 		default:
 			return super.onOptionsItemSelected(item);
 		}

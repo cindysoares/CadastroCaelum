@@ -2,6 +2,8 @@ package br.com.caelum.cadastro;
 
 import java.io.File;
 
+import br.com.caelum.cadastro.model.Aluno;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
