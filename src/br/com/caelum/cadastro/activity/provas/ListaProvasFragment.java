@@ -1,4 +1,4 @@
-package br.com.caelum.cadastro;
+package br.com.caelum.cadastro.activity.provas;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import br.com.caelum.cadastro.R;
 import br.com.caelum.cadastro.model.Prova;
 
 public class ListaProvasFragment extends Fragment {
