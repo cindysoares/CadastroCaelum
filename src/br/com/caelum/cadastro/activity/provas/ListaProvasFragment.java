@@ -38,10 +38,11 @@ public class ListaProvasFragment extends Fragment {
 		this.listViewProvas.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> adapter, View view, int index,
-					long id) {
+			public void onItemClick(AdapterView<?> adapter, View view, int index, long id) {
 				Prova provaSelecionada = (Prova) adapter.getItemAtPosition(index);
-				Toast.makeText(getActivity(), "Prova selecionada:" + provaSelecionada, Toast.LENGTH_LONG).show();
+				
+				ProvasActivity calendarioProvas = (ProvasActivity) getActivity();
+				calendarioProvas.selecionaProva(provaSelecionada);				
 			}
 			
 		});

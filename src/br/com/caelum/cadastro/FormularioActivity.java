@@ -1,6 +1,7 @@
 package br.com.caelum.cadastro;
 
 import java.io.File;
+import java.io.IOException;
 
 import br.com.caelum.cadastro.model.Aluno;
 
@@ -92,9 +93,17 @@ public class FormularioActivity extends Activity {
 	
 	private void tirarFoto() {
 //		localFoto = getExternalFilesDir(null) + "/" + System.currentTimeMillis() + ".jpg";
-		localFoto = Environment.getExternalStorageDirectory() + "/cadastroCaelum/" + System.currentTimeMillis() + ".jpg";
+		//localFoto = Environment.getExternalStorageDirectory() + "/cadastroCaelum/" + System.currentTimeMillis() + ".jpg";
+		//localFoto = getFilesDir() + "/cadastroCaelum/" + System.currentTimeMillis() + ".jpg";
+		localFoto = getApplicationContext().getFilesDir() + "/cadastroCaelum/" + System.currentTimeMillis() + ".jpg";
 		Intent tirarFoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		Log.i(null, "Local da foto:" + localFoto);
+		File file = new File(localFoto);
+		try {
+			file.createNewFile();
+		} catch (IOException e) {
+			Log.e("formularioActivity", "Erro ao criar arquivo " + localFoto, e);
+		}
 		tirarFoto.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(localFoto)));
 		startActivityForResult(tirarFoto, TIRAR_FOTO);		
 	}

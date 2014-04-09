@@ -1,9 +1,11 @@
 package br.com.caelum.cadastro.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Prova {
+@SuppressWarnings("serial")
+public class Prova implements Serializable{
 	private String data;
 	private String materia;
 	private String descricao;
