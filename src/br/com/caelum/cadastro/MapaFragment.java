@@ -2,11 +2,14 @@ package br.com.caelum.cadastro;
 
 import java.util.List;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 import br.com.caelum.cadastro.model.Aluno;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -25,6 +28,10 @@ public class MapaFragment extends SupportMapFragment {
 			markerOptions.title(aluno.getNome())
 				.snippet(aluno.getEndereco())
 				.position(coordenada);
+			if(aluno.getCaminhoFoto() != null && !aluno.getCaminhoFoto().trim().isEmpty()) {
+				markerOptions.icon(getAlunoBitMapDescription(aluno));
+			}
+				
 			getMap().addMarker(markerOptions);
 		}
 		
@@ -36,7 +43,12 @@ public class MapaFragment extends SupportMapFragment {
 	}
 
 	private void centraliza(LatLng local) {
-		getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(local, 10));
+		getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(local, 13));
+	}
+	
+	private BitmapDescriptor getAlunoBitMapDescription(Aluno aluno) {
+		Bitmap image = ImageUtil.decodeSampledBitmapFromFilePath(aluno.getCaminhoFoto(), 100, 100);
+		return BitmapDescriptorFactory.fromBitmap(image);
 	}
 
 }
