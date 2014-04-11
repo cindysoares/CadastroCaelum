@@ -1,6 +1,8 @@
 package br.com.caelum.cadastro;
 
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -15,6 +17,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapaFragment extends SupportMapFragment {
 	
+	private SortedSet<Double> latitudes = new TreeSet<Double>();
+	private SortedSet<Double> longitudes = new TreeSet<Double>();
+	
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -24,6 +29,10 @@ public class MapaFragment extends SupportMapFragment {
 		for (Aluno aluno : alunos) {
 			LatLng coordenada = new Localizador(getActivity()).getCoordenada(aluno.getEndereco());
 			if(coordenada==null) continue;
+			
+			latitudes.add(coordenada.latitude);
+			longitudes.add(coordenada.longitude);
+			
 			MarkerOptions markerOptions = new MarkerOptions();
 			markerOptions.title(aluno.getNome())
 				.snippet(aluno.getEndereco())
@@ -43,7 +52,17 @@ public class MapaFragment extends SupportMapFragment {
 	}
 
 	private void centraliza(LatLng local) {
-		getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(local, 13));
+		
+		double latitude = (latitudes.first() + latitudes.last()) / 2;
+		double longitude = (latitudes.first() + latitudes.last()) / 2;
+		
+		double diferencaLatitude = latitudes.last() - latitudes.first();
+		double diferencaLongitude = longitudes.last() -longitudes.first();
+
+		float zoomLatitude = (float) (22*diferencaLatitude) / 18.0f;
+		Log.i("mapa", String.valueOf(zoomLatitude));
+		
+		getMap().moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), zoomLatitude));
 	}
 	
 	private BitmapDescriptor getAlunoBitMapDescription(Aluno aluno) {
