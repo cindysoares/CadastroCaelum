@@ -54,7 +54,7 @@ public class MapaFragment extends SupportMapFragment {
 	private void centraliza(LatLng local) {
 		
 		double latitude = (latitudes.first() + latitudes.last()) / 2;
-		double longitude = (latitudes.first() + latitudes.last()) / 2;
+		double longitude = (longitudes.first() + longitudes.last()) / 2;
 		
 		double diferencaLatitude = latitudes.last() - latitudes.first();
 		double diferencaLongitude = longitudes.last() -longitudes.first();
